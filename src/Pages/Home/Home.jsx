@@ -1,8 +1,11 @@
+import Banner from "./Banner";
+import TopSelling from "./TopSelling";
 
 const Home = () => {
   return (
     <div>
-      <h1 className='text-red-400 font-bold'>Hello From the Home Page</h1>
+      <Banner></Banner>
+      <TopSelling></TopSelling>
     </div>
   );
 };
