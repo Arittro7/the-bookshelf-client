@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import News from "./News";
 import Recommend from "./Recommend";
 import TopSelling from "./TopSelling";
 
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner></Banner>
       <TopSelling></TopSelling>
       <Recommend></Recommend>
+      <News></News>
     </div>
   );
 };
