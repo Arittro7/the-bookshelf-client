@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const navbarDropdown = [
   {name: "Dashboard", Link: "/dashboard"},
-  {name: "Orders", Link: "/order"},
+  {name: "Orders", Link: "/orders"},
   {name: "Cart", Link: "/cart"},
   {name: "Check Out", Link: "/checkout"},
 ]
@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
           <div className=" relative flex items-center gap-2">
             <IoSearchOutline className="absolute left-2"/>
-            <input type="text" name="" className="bg-[#EAEAEA] md:w-full w-[122px] px-8 py-1 rounded-lg" placeholder="Search here..." />
+            <input type="text" name="" className="bg-[#EAEAEA] md:w-full w-[120px] px-8 py-1 rounded-lg" placeholder="Search here..." />
           </div>
         </div>
         {/* right side */}
@@ -38,7 +38,7 @@ const Navbar = () => {
           <button className="hidden sm:block">
             <FiBookmark className="size-6"/>
           </button>
-          <div>
+          <div className="relative">
             {
               currentUser ? <>
               <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -47,13 +47,15 @@ const Navbar = () => {
               {/* dropdown */}
               {
                 isDropdownOpen && (
-                  <div>
+                  <div className="absolute bg-yellow-400 py-2 px-4 rounded-md top-10 md:-left-1 -left-8">
                     <ul>
                       {
                         navbarDropdown.map((item) =>(
-                         <li key={item.name}>
+                         <li key={item.name} onClick={()=> setIsDropdownOpen(false)}>
                           <Link to={item.Link}>
-                          {item.name}
+                          <div className="uppercase font-semibold hover:border-b-2">
+                            {item.name}
+                          </div>
                           </Link>
                          </li> 
                         ))
