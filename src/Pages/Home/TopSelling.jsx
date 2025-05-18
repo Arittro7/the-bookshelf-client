@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BookCard from "../../Components/Books/BookCard";
 
 const categories = [
   "Choose a genre",
@@ -10,24 +11,43 @@ const categories = [
 
 const TopSelling = () => {
   const [books, setBooks] = useState([]);
+  const [activeCategory, setActiveCategory] =useState("Choose a genre");
   useEffect(() => {
     fetch("books.json")
       .then((res) => res.json())
       .then((data) => setBooks(data));
   }, []);
 
+  const filterBooks = activeCategory === "Choose a genre" ? 
+  books: books.filter(book => book.category === activeCategory.toLowerCase())
+
+  console.log(filterBooks);
+
   return (
     <div className="py-10">
       <h1 className="text-2xl font-semibold mb-6">Top Selling</h1>
 
       {/* category filtering */}
-      <select name="category" id="category">
-        {
-          categories.map((category, index) =>(
-            <option key={index} value={category}>{category}</option>
-          ))
-        }
-      </select>
+      <div className="mb-8 flex items-center">
+        <select
+          onChange={(e) => setActiveCategory(e.target.value)}
+          name="category"
+          id="category"
+          className="border bg-yellow-400 rounded-md px-4 py-2 focus:outline-none"
+        >
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {
+        filterBooks.map((book, index)=> (
+          <BookCard key={index} book={book}></BookCard>
+        ))
+      }
     </div>
   );
 };
