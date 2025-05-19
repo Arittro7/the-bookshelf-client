@@ -6,6 +6,7 @@ import { FiBookmark } from "react-icons/fi";
 import { RiBookShelfFill } from "react-icons/ri";
 import user from "../../assets/user.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const navbarDropdown = [
   { name: "Dashboard", Link: "/dashboard" },
@@ -18,6 +19,7 @@ const Navbar = () => {
   const currentUser = false;
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const cartItems = useSelector(state => state.cart.cartItems)
 
   return (
     <div className="w-full mb-1.5 ">
@@ -89,7 +91,10 @@ const Navbar = () => {
             className="flex gap-2 items-center rounded-md bg-yellow-400 md:px-6 md:py-1 py-1 px-2"
           >
             <RiBookShelfFill className="size-7" />
-            <span className="text-xl">0</span>
+            {
+              cartItems.length > 0 ? <span className="text-xl">{cartItems.length}</span> : <span className="text-xl">0</span>
+            }
+          
           </Link>
         </div>
       </div>

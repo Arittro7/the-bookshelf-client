@@ -8,7 +8,7 @@ const Banner = () => {
             <h1 className="md:text-5xl text-2xl font-bold">
               Discover your <span className="text-green-600">next</span> great read!
             </h1>
-            <p className="py-6 text-3xl">
+            <p className="py-6 lg:text-3xl">
               Shop bestsellers, new releases, and timeless classics all in one place. 
             </p>
             <button className="btn bg-yellow-400 uppercase">Subscribe</button>

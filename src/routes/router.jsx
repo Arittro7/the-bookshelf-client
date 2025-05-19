@@ -5,6 +5,7 @@ import Root from "../Layout/Root";
 import Order from "../Components/Order";
 import Login from "../Pages/Shared/Login";
 import Register from "../Pages/Shared/Register";
+import Cart from "../Components/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+        path: '/cart',
+        element: <Cart></Cart>
+      }
 
     ]
   },
