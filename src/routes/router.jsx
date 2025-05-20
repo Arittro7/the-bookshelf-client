@@ -6,6 +6,8 @@ import Order from "../Components/Order";
 import Login from "../Pages/Shared/Login";
 import Register from "../Pages/Shared/Register";
 import Cart from "../Components/Cart/Cart";
+import Checkout from "../Components/Checkout/Checkout";
+import Book from "../Components/Books/Book";
 
 const router = createBrowserRouter([
   {
@@ -32,8 +34,15 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart></Cart>
-      }
-
+      },
+      {
+        path: '/books/:id',
+        element: <Book></Book>
+      },
+      {
+        path: '/checkout',
+        element: <Checkout></Checkout>
+      },
     ]
   },
 ]);
