@@ -54,7 +54,8 @@ const Book = () => {
 
           <button
             onClick={() => handleAddToCart(book)}
-            className="btn-primary px-6 space-x-1 flex items-center gap-1 "
+
+            className="btn bg-yellow-400 px-6 space-x-1 flex items-center gap-1 "
           >
             <FiShoppingCart className="" />
             <span>Add to Cart</span>
