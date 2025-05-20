@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginGif from "../../assets/logingif.gif"
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form"
+import { AuthContext } from "../../Context/AuthProvider";
+import { useContext } from "react";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const handleGoogleSignIn = () =>{
     //todo: google authentication 
@@ -16,7 +21,22 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+        try {
+            await signIn(data.email, data.password);
+            Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: "Login successfully 👌",
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+            navigate("/")
+        } catch (error) { 
+            console.error(error)
+        }
+      }
+
 
   return (
     <div className='h-[calc(100vh-120px)] bg-[#f5f4f4] flex flex-col lg:flex-row  justify-center items-center'>
