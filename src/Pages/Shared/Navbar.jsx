@@ -5,8 +5,9 @@ import { FaUser } from "react-icons/fa";
 import { FiBookmark } from "react-icons/fi";
 import { RiBookShelfFill } from "react-icons/ri";
 import user from "../../assets/user.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const navbarDropdown = [
   { name: "Dashboard", Link: "/dashboard" },
@@ -16,7 +17,11 @@ const navbarDropdown = [
 ];
 
 const Navbar = () => {
-  const currentUser = false;
+  const { currentUser, Logout } = useContext(AuthContext);
+
+  const handleLogout = () =>{
+    Logout()
+  }
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cartItems = useSelector(state => state.cart.cartItems)
@@ -75,6 +80,9 @@ const Navbar = () => {
                           </button>
                         </li>
                       ))}
+                      <li>
+                        <button onClick={handleLogout} className="uppercase font-semibold hover:border-b-2 bg-yellow-400">Logout</button>
+                      </li>
                     </ul>
                   </div>
                 )}

@@ -1,15 +1,31 @@
 import regGif from "../../assets/regis.gif";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from 'sweetalert2';
 import { useContext } from "react";
 
 const Register = () => {
-  const handleGoogleSignIn = () => {
-    //todo: google authentication
-  };
+  const { createUser, updateUserProfile, signInWithGoogle} = useContext(AuthContext);
+  const navigate = useNavigate()
+
+  const handleGoogleSignIn = async () => {
+      try {
+        await signInWithGoogle();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login successfully with your account👌",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/")
+      } catch (error) {
+        alert("SignIn with Google Failed")
+        console.error(error);
+      }
+    };
 
   const {
     register,
@@ -17,7 +33,7 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  
 
   const onSubmit = (data) => {
     console.log(data);
