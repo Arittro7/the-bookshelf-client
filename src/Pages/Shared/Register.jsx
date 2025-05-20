@@ -2,6 +2,9 @@ import regGif from "../../assets/regis.gif";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
+import { Swal } from "sweetalert2/dist/sweetalert2";
+import { useContext } from "react";
 
 const Register = () => {
   const handleGoogleSignIn = () => {
@@ -14,7 +17,30 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const {createUser, updateUserProfile} = useContext(AuthContext)
+
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password)
+    .then(result =>{
+      const loggedUser = result.useForm
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+      .then(() =>{
+        console.log('user name updated');
+        Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User created successful 👌",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+      })
+      .catch(error => console.log(error))
+
+    })
+  };
 
   return (
     <div>
