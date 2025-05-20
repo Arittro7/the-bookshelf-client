@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
-import { Swal } from "sweetalert2/dist/sweetalert2";
+import Swal from 'sweetalert2';
 import { useContext } from "react";
 
 const Register = () => {
@@ -17,29 +17,32 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const {createUser, updateUserProfile} = useContext(AuthContext)
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const onSubmit = (data) => {
     console.log(data);
+
     createUser(data.email, data.password)
-    .then(result =>{
-      const loggedUser = result.useForm
-      console.log(loggedUser);
-      updateUserProfile(data.name, data.photoURL)
-      .then(() =>{
-        console.log('user name updated');
-        Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "User created successful 👌",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
 
+        updateUserProfile(data.name, data.photoURL)
+          .then(() => {
+            console.log("User name updated");
+
+            // Trigger Swal after everything succeeds
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "User created successfully 👌",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((error) => console.log("Error updating user profile:", error));
       })
-      .catch(error => console.log(error))
-
-    })
+      .catch((error) => console.log("Error creating user:", error));
   };
 
   return (
@@ -52,6 +55,38 @@ const Register = () => {
           <h2 className="text-xl font-semibold mb-2">Please Register</h2>
           {/* form start here */}
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm uppercase font-bold mb-2"
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                {...register("name", { required: true })}
+                type="name"
+                name="name"
+                id="name"
+                placeholder="name"
+                className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none "
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm uppercase font-bold mb-2"
+                htmlFor="photo"
+              >
+                Photo URL
+              </label>
+              <input
+                {...register("photo", { required: true })}
+                type="photo"
+                name="photo"
+                id="photo"
+                placeholder="photo"
+                className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none "
+              />
+            </div>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm uppercase font-bold mb-2"
