@@ -11,6 +11,9 @@ import Book from "../Components/Books/Book";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import AdminLogin from "../Pages/Admin/AdminLogin";
+import DashboardLayout from "../Components/Dashboard/DashboardLayout";
+import Dashboard from "../Components/Dashboard/Dashboard";
+import UpdateBook from "../Components/Dashboard/UpdateBook/UpdateBook";
 
 const router = createBrowserRouter([
   {
@@ -59,11 +62,11 @@ const router = createBrowserRouter([
   // Routes for administrative
   {
     path: "/dashboard",
-    element: <AdminRoute><div>Admin Dashboard</div></AdminRoute>,
+    element: <AdminRoute><DashboardLayout></DashboardLayout></AdminRoute>,
     children: [
       {
         path: "",
-        element: <AdminRoute><div>Dashboard Home</div></AdminRoute>
+        element: <AdminRoute><Dashboard></Dashboard></AdminRoute>
       },
       {
         path: "add-book",
@@ -75,7 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: "update-book",
-        element: <AdminRoute><div>Update a Book</div></AdminRoute>
+        element: <AdminRoute><UpdateBook></UpdateBook></AdminRoute>
       }
     ]
   }
