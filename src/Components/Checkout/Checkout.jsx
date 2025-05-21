@@ -27,7 +27,6 @@ const Checkout = () => {
   const onSubmit = (data) => {
     console.log(data)
     const newOrder = {
-      // note: will added with backend
       name: data.name,
       email: currentUser?.email,
       address: {
@@ -49,7 +48,7 @@ const Checkout = () => {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, It's Okay!"
+                confirmButtonText: "Thanks for your Order!"
               });
               navigate("/orders")
     } catch (error) {
