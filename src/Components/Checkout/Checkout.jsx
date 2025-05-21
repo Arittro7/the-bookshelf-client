@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
+import Swal from "sweetalert2";
+import {useCreateOrderMutation} from '../../redux/Features/Orders/OrdersApi'
 
 const Checkout = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -9,9 +12,11 @@ const Checkout = () => {
     .reduce((acc, item) => acc + item.newPrice, 0)
     .toFixed(2);
 
-  const currentUser = {
-  email: "test@example.com" // note: ------> will update later
-} 
+  const {currentUser} = useContext(AuthContext);
+  const [createOrder, {isLoading}] = useCreateOrderMutation();
+
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -35,10 +40,27 @@ const Checkout = () => {
       productIDs : cartItems.map(item => item?._id),
       totalPrice: totalPrice,
     }
+    try {
+      createOrder(newOrder).unwrap()
+      Swal.fire({
+                title: "Confirmed Order",
+                text: "Your order placed successfully!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, It's Okay!"
+              });
+              navigate("/orders")
+    } catch (error) {
+      console.error("Error to place an order",error);
+      
+    }
     console.log(newOrder);
   };
   
   const [isChecked, setIsChecked] = useState()
+  if(isLoading) return <div>Loading</div>
 
   return (
     <div>
@@ -254,7 +276,7 @@ const Checkout = () => {
                     <div className="md:col-span-5 text-right">
                       <div className="inline-flex items-end">
                         <button
-                          // disabled={!isChecked}
+                          disabled={!isChecked}
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                           Place an Order

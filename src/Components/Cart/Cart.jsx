@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import getImgUrl from "../../Utility/getImgUrl";
 import { clearCart, removeFromTheCart } from "../../redux/Features/cart/cartSlice";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2)
   const dispatch = useDispatch()
+  const {currentUser} = useContext(AuthContext)
 
   const handleRemoveCart = (product) =>{
     dispatch(removeFromTheCart(product))

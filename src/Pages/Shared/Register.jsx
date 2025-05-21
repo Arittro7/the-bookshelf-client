@@ -46,8 +46,6 @@ const Register = () => {
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
             console.log("User name updated");
-
-            // Trigger Swal after everything succeeds
             Swal.fire({
               position: "center",
               icon: "success",
@@ -55,6 +53,7 @@ const Register = () => {
               showConfirmButton: false,
               timer: 1500,
             });
+            navigate("/")
           })
           .catch((error) => console.log("Error updating user profile:", error));
       })

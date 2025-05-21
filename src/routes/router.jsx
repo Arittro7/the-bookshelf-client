@@ -8,6 +8,7 @@ import Register from "../Pages/Shared/Register";
 import Cart from "../Components/Cart/Cart";
 import Checkout from "../Components/Checkout/Checkout";
 import Book from "../Components/Books/Book";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,33 +18,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
       },
       {
         path: "/orders",
-        element: <Order></Order>
+        element: <Order></Order>,
       },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/register",
-        element: <Register></Register>
+        element: <Register></Register>,
       },
       {
-        path: '/cart',
-        element: <Cart></Cart>
+        path: "/cart",
+        element: <PrivateRoute><Cart></Cart></PrivateRoute>,
       },
       {
-        path: '/books/:id',
-        element: <Book></Book>
+        path: "/books/:id",
+        element: <Book></Book>,
       },
       {
-        path: '/checkout',
-        element: <Checkout></Checkout>
+        path: "/checkout",
+        element: (
+          <PrivateRoute>
+            <Checkout></Checkout>
+          </PrivateRoute>
+        ),
       },
-    ]
+    ],
   },
 ]);
 
