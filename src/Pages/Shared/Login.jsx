@@ -78,7 +78,7 @@ const Login = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm uppercase font-bold mb-2"
-              htmlFor="email"
+              htmlFor="password"
             >
               Password
             </label>
