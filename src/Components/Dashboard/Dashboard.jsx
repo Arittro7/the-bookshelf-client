@@ -16,7 +16,7 @@ const Dashboard = () => {
       try {
         const response = await axios.get(`${getBaseUrl()}/api/admin`, {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         });
@@ -24,13 +24,12 @@ const Dashboard = () => {
         setData(response.data);
         setLoading(false);
       } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+        console.error("Error:", error);
+      }
+    };
 
-        fetchData();
-    }, []);
-
+    fetchData();
+  }, []);
 
   if (loading) return <Loading />;
 
@@ -124,7 +123,8 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
+      {/* dummy data */}
+      {/* <section className="grid md:grid-cols-2 xl:grid-cols-2 xl:grid-rows-3 xl:grid-flow-col gap-6">
         <div className="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">
             The number of orders per month
@@ -306,7 +306,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

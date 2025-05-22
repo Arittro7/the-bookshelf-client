@@ -1,36 +1,9 @@
-import { Link, Outlet, useNavigate} from 'react-router-dom';
+import { Link, Outlet} from 'react-router-dom';
 import { HiViewGridAdd } from "react-icons/hi";
 import { MdOutlineManageHistory } from "react-icons/md";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import getBaseUrl from '../../Utility/baseURL';
-import Loading from '../../Pages/Shared/Loading';
 
 const DashboardLayout = () => {
-  // const [loading, setLoading] =useState(true) //note: att2
-  // const [data, setData] = useState({}) //note: att2
   
-  // useEffect(() =>{                  //note: att2
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${getBaseUrl()}/api/admin`, {
-  //         headers: {
-  //           'Authorization' : `Bearer ${localStorage.getItem('token')}}`
-  //         }
-  //       })
-  //       setData(response.data)
-  //       setLoading(false)
-  //     } catch (error) {
-  //       console.error('Error', error);
-       
-  //     }
-  //   }
-  //   fetchData()
-  // },[])
-
-  // if(loading) return <Loading/>
-
-  // const navigate = useNavigate()
   const handleLogout = () => {
     localStorage.removeItem('token');
     // navigate("/")
