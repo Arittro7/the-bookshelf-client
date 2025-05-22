@@ -5,7 +5,7 @@ import { FaUser } from "react-icons/fa";
 import { FiBookmark } from "react-icons/fi";
 import { RiBookShelfFill } from "react-icons/ri";
 import user from "../../assets/user.png";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../../Context/AuthProvider";
 
@@ -19,12 +19,31 @@ const navbarDropdown = [
 const Navbar = () => {
   const { currentUser, Logout } = useContext(AuthContext);
 
-  const handleLogout = () =>{
-    Logout()
-  }
+  const handleLogout = () => {
+    Logout();
+  };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const cartItems = useSelector(state => state.cart.cartItems)
+  const dropdownRef = useRef(null);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-full mb-1.5 ">
@@ -46,15 +65,12 @@ const Navbar = () => {
         </div>
         {/* right side */}
         <div className="flex gap-3 items-center">
-          <button className="hidden sm:block">
-            <FiBookmark className="size-6" />
-          </button>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             {currentUser ? (
               <>
                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                   <img
-                    src={ currentUser?.photoURL ||user}
+                    src={currentUser?.photoURL || user}
                     className={`size-6 ${
                       currentUser
                         ? "ring-2 ring-yellow-400 rounded-full mt-1.5"
@@ -81,7 +97,12 @@ const Navbar = () => {
                         </li>
                       ))}
                       <li>
-                        <button onClick={handleLogout} className="uppercase font-semibold hover:border-b-2 bg-yellow-400">Logout</button>
+                        <button
+                          onClick={handleLogout}
+                          className="uppercase font-semibold hover:border-b-2 bg-yellow-400"
+                        >
+                          Logout
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -99,10 +120,11 @@ const Navbar = () => {
             className="flex gap-2 items-center rounded-md bg-yellow-400 md:px-6 md:py-1 py-1 px-2"
           >
             <RiBookShelfFill className="size-7" />
-            {
-              cartItems.length > 0 ? <span className="text-xl">{cartItems.length}</span> : <span className="text-xl">0</span>
-            }
-          
+            {cartItems.length > 0 ? (
+              <span className="text-xl">{cartItems.length}</span>
+            ) : (
+              <span className="text-xl">0</span>
+            )}
           </Link>
         </div>
       </div>
