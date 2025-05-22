@@ -1,10 +1,10 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
-import { createApi } from '@reduxjs/toolkit/query/react'
+// import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { createApi , fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import getBaseUrl from '../../../Utility/baseURL'
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: `${import.meta.env.VITE_API_BASE_URL}/api/books`, ----> //note: not working
-  baseUrl: `${getBaseUrl()}/api/books`,
+   baseUrl: `${getBaseUrl()}/api/books`,
   credentials: 'include',
   prepareHeaders: (Headers) => {
     const token = localStorage.getItem('token')
@@ -38,7 +38,7 @@ const booksApi = createApi({
     }),
     updateBook: builder.mutation({
       query: ({id, ...rest}) => ({
-        url: `/update/${id}`,
+        url: `/edit/${id}`,
         method: "PUT",
         body: rest,
         headers: {

@@ -3,8 +3,10 @@ import adminGif from "../../assets/admin.gif";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import getBaseUrl from "../../Utility/baseURL";
+import { useState } from "react";
 
 const AdminLogin = () => {
+  const [message, setMessage] = useState("")
   const navigate = useNavigate();
   const {
     register,
@@ -16,20 +18,17 @@ const AdminLogin = () => {
     console.log(data);
     try {
       const response = await axios.post(
-        `${getBaseUrl()}/api/auth/admin`,
-        data,
-        {
+        `${getBaseUrl()}/api/auth/admin`,data, {
           headers: {
             "Content-Type": "application/json",
           },
-        }
-      );
+        });
       const auth = response.data;
       console.log(auth);
       if (auth.token) {
-        localStorage.setItem("token", auth.token);
+        localStorage.setItem('token', auth.token);
         setTimeout(() => {
-          localStorage.removeItem("token");
+          localStorage.removeItem('token');
           alert("token has been expired, please login again");
           navigate("/");
         }, 3600 * 1000);
@@ -38,7 +37,7 @@ const AdminLogin = () => {
       alert("Admin Login successful");
       navigate("/dashboard");
     } catch (error) {
-      alert("Login Failed");
+      setMessage("Please provide a valid email and password") 
       console.error(error);
     }
   };
@@ -90,6 +89,9 @@ const AdminLogin = () => {
                 Please entre valid email and password
               </p>
             )}
+            {
+                    message && <p className='text-red-500 text-xs italic mb-3'>{message}</p>
+                }
             <div>
               <button className="btn w-full bg-yellow-400 hover:bg-black hover:text-white px-6 rounded-lg">
                 Login
