@@ -112,6 +112,6 @@ npm run dev
 
 ## 🚀 Backend Github Repo
 
-## 👉 **[Click here to navigate backend Gitgub repository](https://github.com/Arittro7/the-bookshelf-server)**
+## 👉 **[Click here to navigate backend Github repository](https://github.com/Arittro7/the-bookshelf-server)**
 
 --- 
